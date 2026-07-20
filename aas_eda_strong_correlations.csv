@@ -1,0 +1,5 @@
+feature,target,pearson_r
+water_binder_ratio,FST,0.872621471677868
+water_binder_ratio,IST,0.7246519627857687
+Na2O_pct,FST,-0.5809591739125987
+Na2O_pct,IST,-0.4715349243812036

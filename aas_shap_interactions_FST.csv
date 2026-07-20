@@ -1,0 +1,6 @@
+model,feature_a,feature_b,mean_abs_interaction
+RandomForest_FST,Na2O_pct,MS,0.9860468992247535
+RandomForest_FST,MS,water_binder_ratio,0.4950550561273353
+RandomForest_FST,Alk_Bi,Na2SiO3_binder_ratio,0.3437926238641051
+RandomForest_FST,Na2O_pct,has_Na2SiO3,0.3108876158232118
+RandomForest_FST,Na2O_pct,LS,0.30996596336043614

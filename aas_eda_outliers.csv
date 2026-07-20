@@ -1,0 +1,7 @@
+Trial,column,value,z_score,flagged_by_zscore,flagged_by_iqr,flagged_by_both
+16,FST,335.0,3.33,True,True,True
+16,IST,135.0,3.2,True,True,True
+13,Na2SiO3_binder_ratio,0.8295,2.3,False,True,False
+16,water_binder_ratio,0.3247,2.2,False,True,False
+15,Alk_Bi,1.1,1.96,False,True,False
+19,water_binder_ratio,0.28300000000000003,1.84,False,True,False
