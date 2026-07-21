@@ -41,6 +41,7 @@ st.set_page_config(page_title="AAS Mix Design Assistant", layout="centered")
 MODEL_PATH = "aas_hybrid_model.joblib"
 CLEANED_DATA_PATH = "aas_cleaned_dataset.csv"
 METRICS_PATH = "aas_model_metrics_comparison.csv"
+RAW_DATA_PATH = "Setting_timeX.xlsx"
 
 try:
     import shap  # noqa: F401
@@ -51,7 +52,27 @@ except ImportError:
 
 @st.cache_resource
 def load_artifacts():
-    return joblib.load(MODEL_PATH)
+    """
+    Load the pre-trained model. If it fails to unpickle -- e.g. because the
+    deployment environment resolved different numpy/scikit-learn versions
+    than whatever trained the committed .joblib file, which can break
+    pickle compatibility across versions -- automatically retrain from raw
+    data in THIS environment instead, so training and loading always use
+    identical library versions. This makes the app self-healing across
+    Python/package version drift on hosts like Streamlit Community Cloud.
+    """
+    try:
+        return joblib.load(MODEL_PATH)
+    except Exception as e:
+        st.warning(
+            f"Could not load the pre-trained model ({type(e).__name__}: {e}). "
+            "This usually means the deployment environment has different "
+            "package versions than whatever trained the saved file. "
+            "Retraining from raw data in this environment instead (one-time, ~1-2 min)..."
+        )
+        from aas_setting_time_pipeline import main as train_pipeline_main
+        train_pipeline_main(RAW_DATA_PATH)
+        return joblib.load(MODEL_PATH)
 
 
 @st.cache_data
