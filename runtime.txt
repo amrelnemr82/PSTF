@@ -1,0 +1,6 @@
+# NOTE: Streamlit Community Cloud no longer reads this file for Python version
+# selection (confirmed via their docs + multiple open platform bugs where
+# runtime.txt is silently ignored). Select the Python version instead via the
+# "Advanced settings" dropdown when you deploy on share.streamlit.io -- choose
+# Python 3.12 to match the environment this project was built and tested in.
+python-3.12
