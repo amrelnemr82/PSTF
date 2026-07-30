@@ -237,3 +237,29 @@ with tab_info:
         ({int(GA_MUTATION_PROB * 100)}% gene-wise probability, σ = {int(GA_MUTATION_SIGMA_FRAC * 100)}% of feature range).
         """
     )
+
+    st.divider()
+    st.subheader("Model file (for redeploying without retrain delay)")
+    if os.path.exists(MODEL_PATH):
+        with open(MODEL_PATH, "rb") as f:
+            model_bytes = f.read()
+        st.download_button(
+            "Download current aas_hybrid_model.joblib",
+            data=model_bytes,
+            file_name="aas_hybrid_model.joblib",
+            mime="application/octet-stream",
+        )
+        st.caption(
+            "If this model was just self-healed/retrained in this environment "
+            "(see any warning above on app load), download it here and commit "
+            "it to your repo -- replacing the old aas_hybrid_model.joblib -- to "
+            "skip the retrain delay on future cold starts, since this file will "
+            "then be pickled with library versions that match this exact "
+            "deployment environment."
+        )
+    else:
+        st.info("No model file found on disk yet.")
+
+    if st.button("Force retrain now from raw data (clears cache)"):
+        load_artifacts.clear()
+        st.rerun()
